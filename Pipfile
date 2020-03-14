@@ -7,11 +7,7 @@ verify_ssl = true
 
 [packages]
 django = "*"
-djangorestframework = "*"
-pygments = "*"
 pillow = "*"
-lastfm-pg = {editable = true,path = "./../lastfm_pg"}
-django-crispy-forms = "*"
 django-bootstrap4 = "*"
 numpy = "*"
 django-heroku = "*"
