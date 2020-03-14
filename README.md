@@ -24,4 +24,5 @@ If you can't use ini files (i.e. when deploying for heroku), you can use those e
 
 - `PYLAST_USERNAME`
 - `PYLAST_API_KEY`
-- `PYLAST_API_USERNAME`
+- `PYLAST_API_SECRET`
+- `DJANGO_SECRET_KEY`

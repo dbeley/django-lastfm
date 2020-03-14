@@ -33,7 +33,7 @@ def get_secret(BASE_DIR, config_file):
             "config file. Error : %s",
             e,
         )
-        exit()
+        return os.environ["DJANGO_SECRET_KEY"]
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
