@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block page_content %}
+    <h3>lastfm-scraping</h3>
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-timeline-tab" data-toggle="pill" href="#pills-timeline" role="tab" aria-controls="pills-timeline" aria-selected="true">User Timeline</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-favorite-tab" data-toggle="pill" href="#pills-favorite" role="tab" aria-controls="pills-favorite" aria-selected="false">User Favorite Tracks</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-genre-tab" data-toggle="pill" href="#pills-genre" role="tab" aria-controls="pills-genre" aria-selected="false">Genre</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-info-tab" data-toggle="pill" href="#pills-info" role="tab" aria-controls="pills-info" aria-selected="false">Artist infos</a>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-timeline" role="tabpanel" aria-labelledby="pills-timeline-tab">
+	<form action="" method="post" class="form">
+    	{% csrf_token %}
+    	{% bootstrap_form formtimeline layout='inline' %}
+    	{% buttons %}
+        	<button type="submit" name="formtimeline" class="btn btn-primary">Submit</button>
+    	{% endbuttons %}
+	</form>
+</div>
+  <div class="tab-pane fade" id="pills-favorite" role="tabpanel" aria-labelledby="pills-favorite-tab">
+	<form action="" method="post" class="form">
+    	{% csrf_token %}
+    	{% bootstrap_form formfavorite layout='inline' %}
+    	{% buttons %}
+        	<button type="submit" name="formfavorite" class="btn btn-primary">Submit</button>
+    	{% endbuttons %}
+	</form>
+</div>
+  <div class="tab-pane fade" id="pills-genre" role="tabpanel" aria-labelledby="pills-genre-tab">
+	<form action="" method="post" class="form">
+    	{% csrf_token %}
+    	{% bootstrap_form formgenre layout='inline' %}
+    	{% buttons %}
+        	<button type="submit" name="formgenre" class="btn btn-primary">Submit</button>
+    	{% endbuttons %}
+	</form>
+</div>
+  <div class="tab-pane fade" id="pills-info" role="tabpanel" aria-labelledby="pills-info-tab">
+	<form action="" method="post" class="form">
+    	{% csrf_token %}
+    	{% bootstrap_form forminfo layout='inline' %}
+    	{% buttons %}
+        	<button type="submit" name="forminfo" class="btn btn-primary">Submit</button>
+    	{% endbuttons %}
+	</form>
+{% endblock %}

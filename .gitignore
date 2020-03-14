@@ -1,0 +1,3 @@
+*.ini
+db.sqlite3
+tags
