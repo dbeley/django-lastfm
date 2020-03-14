@@ -12,6 +12,7 @@ django-bootstrap4 = "*"
 numpy = "*"
 django-heroku = "*"
 gunicorn = "*"
+pylast = "*"
 
 [requires]
 python_version = "3.8"
