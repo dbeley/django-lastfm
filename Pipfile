@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+djangorestframework = "*"
+pygments = "*"
+pillow = "*"
+lastfm-pg = {editable = true,path = "./../lastfm_pg"}
+django-crispy-forms = "*"
+django-bootstrap4 = "*"
+numpy = "*"
+django-heroku = "*"
+gunicorn = "*"
+
+[requires]
+python_version = "3.8"
