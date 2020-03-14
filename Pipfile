@@ -13,6 +13,7 @@ numpy = "*"
 django-heroku = "*"
 gunicorn = "*"
 pylast = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
