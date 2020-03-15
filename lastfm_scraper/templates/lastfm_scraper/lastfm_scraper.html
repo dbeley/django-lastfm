@@ -27,8 +27,8 @@
 </ul>
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane fade show active" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
-  	  <p>Export a timeline of a lastfm user in csv format. Can take a long time for big timeline.</p>
-	<form action="" method="post" class="form">
+  	  <p>Export all the scrobbles of a lastfm user in csv format (Fields: index, artist, album, title, playback_date, timestamp).</p>
+  	  <form action="" method="post" class="form">
     	{% csrf_token %}
     	{% bootstrap_form formtimeline layout='inline' %}
     	{% buttons %}
@@ -57,7 +57,7 @@
 	</form>
 </div>
   <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
-  	  <p>Export name, url, listeners count and playcount in JSON format for one or several artists.</p>
+  	  <p>Export informations about one or several artists in JSON format (Fields: name, url, listeners count and playcount).</p>
 	<form action="" method="post" class="form">
     	{% csrf_token %}
     	{% bootstrap_form forminfo layout='inline' %}
