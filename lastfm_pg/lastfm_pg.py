@@ -31,15 +31,20 @@ def get_lastfm_playlist(user, timeframe, playlist_length, only_favorites=True):
     # List of recently played tracks
     top_tracks = user.get_top_tracks(period=timeframe, limit=1000)
     if only_favorites:
-        # List of all loved tracks
-        # Need to extract all loved tracks, get_userloved() function doesn't seems to work
-        loved_tracks = user.get_loved_tracks(limit=None)
-        loved_tracks = [x.track for x in loved_tracks]
+        try:
+            # List of all loved tracks
+            # Need to extract all loved tracks, get_userloved() function doesn't seems to work
+            loved_tracks = user.get_loved_tracks(limit=None)
+            loved_tracks = [x.track for x in loved_tracks]
 
-        # List of tracks presents in both lists
-        playlist_potential_tracks = [
-            (x.weight, x.item) for x in top_tracks if x.item in loved_tracks
-        ]
+            # List of tracks presents in both lists
+            playlist_potential_tracks = [
+                (x.weight, x.item)
+                for x in top_tracks
+                if x.item in loved_tracks
+            ]
+        except Exception as e:
+            print(e)
     else:
         # List of tracks presents in both lists
         playlist_potential_tracks = [(x.weight, x.item) for x in top_tracks]
