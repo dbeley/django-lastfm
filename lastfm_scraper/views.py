@@ -20,7 +20,11 @@ def lastfm_scraper(request):
     if request.method == "POST":
         if "formtimeline" in request.POST:
             # create a form instance and populate it with data from the request:
-            formtimeline = LastfmCompleteTimeline(request.POST)
+            try:
+                formtimeline = LastfmCompleteTimeline(request.POST)
+            except Exception as e:
+                print(e)
+                return HttpResponse(content=e, status=400)
             # check whether it's valid:
             if formtimeline.is_valid():
                 content = fetch_new_tracks(
@@ -30,7 +34,11 @@ def lastfm_scraper(request):
     if request.method == "POST":
         if "formfavorite" in request.POST:
             # create a form instance and populate it with data from the request:
-            formfavorite = LastfmAllFavoriteTracks(request.POST)
+            try:
+                formfavorite = LastfmAllFavoriteTracks(request.POST)
+            except Exception as e:
+                print(e)
+                return HttpResponse(content=e, status=400)
             # check whether it's valid:
             if formfavorite.is_valid():
                 content = get_all_favorite_tracks(
@@ -40,7 +48,11 @@ def lastfm_scraper(request):
     if request.method == "POST":
         if "formgenre" in request.POST:
             # create a form instance and populate it with data from the request:
-            formgenre = LastfmArtistsByGenre(request.POST)
+            try:
+                formgenre = LastfmArtistsByGenre(request.POST)
+            except Exception as e:
+                print(e)
+                return HttpResponse(content=e, status=400)
             # check whether it's valid:
             if formgenre.is_valid():
                 content = get_artists_genre(formgenre.cleaned_data["genre"])
@@ -48,7 +60,11 @@ def lastfm_scraper(request):
     if request.method == "POST":
         if "forminfo" in request.POST:
             # create a form instance and populate it with data from the request:
-            forminfo = LastfmArtistInformation(request.POST)
+            try:
+                forminfo = LastfmArtistInformation(request.POST)
+            except Exception as e:
+                print(e)
+                return HttpResponse(content=e, status=400)
             # check whether it's valid:
             if forminfo.is_valid():
                 content = get_artist_info(forminfo.cleaned_data["artist"])

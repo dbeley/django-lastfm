@@ -31,7 +31,11 @@ def lastfm_pg(request):
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            content = get_lastfm_pg(form)
+            try:
+                content = get_lastfm_pg(form)
+            except Exception as e:
+                print(e)
+                return HttpResponse(content=e, status=400)
             return HttpResponse(content, content_type="text/plain")
 
     # if a GET (or any other method) we'll create a blank form

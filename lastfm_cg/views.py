@@ -24,7 +24,11 @@ def lastfm_cg(request):
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            content = get_lastfm_cg(form)
+            try:
+                content = get_lastfm_cg(form)
+            except Exception as e:
+                print(e)
+                return HttpResponse(content=e, status=400)
             response = HttpResponse(content_type="image/png")
             response[
                 "Content-Disposition"
