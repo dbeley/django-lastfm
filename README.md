@@ -1,8 +1,16 @@
 # lastfm_django
 
+<a href="pictures/image.png"><img src="pictures/image.png" width="390"/></a>
+
+Simple django site acting as a frontend for:
+
+- [lastfm_cg](https://github.com/dbeley/lastfm_cg): Lastfm collage generator
+- [lastfm_pg](https://github.com/dbeley/lastfm_pg): Lastfm playlist generator
+- [lastfm-scraper](https://github.com/dbeley/lastfm-scraper): Some lastfm scripts
+
 ## Secrets
 
-You need some config files for the apps to work.
+To run the website, you will need some config files.
 
 ### secret.ini
 ```
@@ -20,7 +28,7 @@ api_secret=api_secret_here
 
 ### Environment variables
 
-If you can't use ini files (i.e. when deploying for heroku), you can use those environment variables :
+If you can't use ini files (i.e. when deploying with heroku), you can use those environment variables:
 
 - `PYLAST_USERNAME`
 - `PYLAST_API_KEY`

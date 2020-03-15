@@ -2,7 +2,7 @@ from django import forms
 
 
 class LastfmCGForm(forms.Form):
-    username = forms.CharField(label="Lastfm Username", max_length=100)
+    username = forms.CharField(label="Lastfm username", max_length=100)
     TIMEFRAME_CHOICES = (
         ("7day", "last week"),
         ("1month", "last month"),
