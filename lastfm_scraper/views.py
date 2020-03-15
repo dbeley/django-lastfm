@@ -24,7 +24,7 @@ def lastfm_scraper(request):
             # check whether it's valid:
             if formtimeline.is_valid():
                 content = fetch_new_tracks(
-                    formtimeline.cleaed_data["username"]
+                    formtimeline.cleaned_data["username"]
                 )
                 return HttpResponse(content, content_type="text/plain")
     if request.method == "POST":

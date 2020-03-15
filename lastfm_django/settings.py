@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "lastfm_pg",
     "lastfm_cg",
     "lastfm_scraper",
+    "widget_tweaks",
     "bootstrap4",
 ]
 

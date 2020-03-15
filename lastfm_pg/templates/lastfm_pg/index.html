@@ -2,11 +2,19 @@
 {% load static %}
 
 {% block page_content %}
-<h1>lastfm tools</h1>
+<h1>Lastfm tools</h1>
+<hr>
 <ul>
-<li><a href="/scraping">Scraping</a> : Scraping tools</li>
-<li><a href="/lastfm_pg">Playlist Generator</a> : Generate list of most played tracks</li>
-<li><a href="/lastfm_cg">Collage Generator</a> : Lastfm Collage Generator</li>
+
+<li><a href="/scraping">Scraping</a> : Scraping tools.</li>
+	<ul>
+	<li><a href="/scraping">Timeline</a> : Export a lastfm user timeline.</li>
+	<li><a href="/scraping#favorite">Favorite</a> : Export all the favorite tracks of a lastfm user.</li>
+	<li><a href="/scraping#genre">Genre</a> : Export a list artists of one or several genres (100 artists for each genre).</li>
+	<li><a href="/scraping#info">Artist infos</a> : Extract infos about one or several artists.</li>
+	</ul
+<li><a href="/lastfm_pg">Playlist Generator</a> : Generate list of the most played tracks of a lastfm user.</li>
+<li><a href="/lastfm_cg">Collage Generator</a> : Lastfm Collage Generator.</li>
 </ul>
 
 <p><a href="https://dbeley.ovh">My website</a></p>

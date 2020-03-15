@@ -8,24 +8,26 @@
 {% bootstrap_javascript jquery='full' %}
 
 {% block page_content %}
-    <h3>lastfm-scraping</h3>
+<h1>Lastfm scraping</h3>
+<hr>
 
-<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+<ul class="nav nav-pills mb-3" id="tab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="pills-timeline-tab" data-toggle="pill" href="#pills-timeline" role="tab" aria-controls="pills-timeline" aria-selected="true">User Timeline</a>
+    <a class="nav-link active" id="timeline-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="timeline" aria-selected="true">User Timeline</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="pills-favorite-tab" data-toggle="pill" href="#pills-favorite" role="tab" aria-controls="pills-favorite" aria-selected="false">User Favorite Tracks</a>
+    <a class="nav-link" id="favorite-tab" data-toggle="pill" href="#favorite" role="tab" aria-controls="favorite" aria-selected="false">User Favorite Tracks</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="pills-genre-tab" data-toggle="pill" href="#pills-genre" role="tab" aria-controls="pills-genre" aria-selected="false">Genre</a>
+    <a class="nav-link" id="genre-tab" data-toggle="pill" href="#genre" role="tab" aria-controls="genre" aria-selected="false">Genre</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="pills-info-tab" data-toggle="pill" href="#pills-info" role="tab" aria-controls="pills-info" aria-selected="false">Artist infos</a>
+    <a class="nav-link" id="info-tab" data-toggle="pill" href="#info" role="tab" aria-controls="info" aria-selected="false">Artist infos</a>
   </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-timeline" role="tabpanel" aria-labelledby="pills-timeline-tab">
+  <div class="tab-pane fade show active" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
+  	  <p>Export a timeline of a lastfm user in csv format. Can take a long time for big timeline.</p>
 	<form action="" method="post" class="form">
     	{% csrf_token %}
     	{% bootstrap_form formtimeline layout='inline' %}
@@ -34,7 +36,8 @@
     	{% endbuttons %}
 	</form>
 </div>
-  <div class="tab-pane fade" id="pills-favorite" role="tabpanel" aria-labelledby="pills-favorite-tab">
+  <div class="tab-pane fade" id="favorite" role="tabpanel" aria-labelledby="favorite-tab">
+  	  <p>Export a list of all favorite tracks of a lastfm user.</p>
 	<form action="" method="post" class="form">
     	{% csrf_token %}
     	{% bootstrap_form formfavorite layout='inline' %}
@@ -43,7 +46,8 @@
     	{% endbuttons %}
 	</form>
 </div>
-  <div class="tab-pane fade" id="pills-genre" role="tabpanel" aria-labelledby="pills-genre-tab">
+  <div class="tab-pane fade" id="genre" role="tabpanel" aria-labelledby="genre-tab">
+  	  <p>Export a list of artists for one or several genres (each genres will add 100 artists, duplicates might be found).</p>
 	<form action="" method="post" class="form">
     	{% csrf_token %}
     	{% bootstrap_form formgenre layout='inline' %}
@@ -52,7 +56,8 @@
     	{% endbuttons %}
 	</form>
 </div>
-  <div class="tab-pane fade" id="pills-info" role="tabpanel" aria-labelledby="pills-info-tab">
+  <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
+  	  <p>Export name, url, listeners count and playcount in JSON format for one or several artists.</p>
 	<form action="" method="post" class="form">
     	{% csrf_token %}
     	{% bootstrap_form forminfo layout='inline' %}

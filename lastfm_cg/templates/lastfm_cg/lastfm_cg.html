@@ -3,18 +3,25 @@
 
 {# Load the tag library #}
 {% load bootstrap4 %}
-
+{% load widget_tweaks %}
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
 
 {% block page_content %}
-<h1> lastfm collage generator </h1>
+<h1> Lastfm collage generator </h1>
+
+<hr class="col-xs-12">
+
+<img class="special-img-class" style="width: 30%;" src="https://raw.githubusercontent.com/dbeley/lastfm_cg/master/docs/1month_2x3.png" alt="lastfm_cg image" title="">
 
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
 
 {# Display a form #}
+{# comment #}
+{# endcomment #}
+{% comment %}
 <form action="" method="post" class="form">
     {% csrf_token %}
     {% bootstrap_form form layout='inline' %}
@@ -22,4 +29,31 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     {% endbuttons %}
 </form>
+{% endcomment %}
+
+<hr>
+
+  <form method="post">
+    {% csrf_token %}
+
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+
+    {% for field in form.visible_fields %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field|add_class:'form-control' }}
+        {% for error in field.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-ok"></span> Submit
+      </button>
+    </div>
+  </form>
 {% endblock %}

@@ -3,18 +3,20 @@
 
 {# Load the tag library #}
 {% load bootstrap4 %}
+{% load widget_tweaks %}
 
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
 
 {% block page_content %}
-<h1> lastfm playlist generator </h1>
+<h1> Lastfm playlist generator </h1>
 
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
 
 {# Display a form #}
+{% comment %}
 <form action="" method="post" class="form">
     {% csrf_token %}
     {% bootstrap_form form layout='inline' %}
@@ -22,4 +24,56 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     {% endbuttons %}
 </form>
+{% endcomment %}
+
+<hr>
+
+  <form method="post">
+    {% csrf_token %}
+
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+        {{ form.username|add_class:'form-control' }}
+        {% for error in form.username.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.timeframe.id_for_label }}">{{ form.timeframe.label }}</label>
+        {{ form.timeframe|add_class:'form-control' }}
+        {% for error in form.timeframe.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.playlist_size.id_for_label }}">{{ form.playlist_size.label }}</label>
+        {{ form.playlist_size|add_class:'form-control' }}
+        {% for error in form.playlist_size.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+    {% with WIDGET_ERROR_CLASS='help-block' WIDGET_REQUIRED_CLASS='form-check' %}
+      <div class="form-check">
+    	{% render_field form.only_favorites %}
+        <label for="{{ form.only_favorites.id_for_label }}">{{ form.only_favorites.label }}</label>
+      </div>
+      <div class="form-check">
+    	{% render_field form.csv %}
+        <label for="{{ form.csv.id_for_label }}">{{ form.csv.label }}</label>
+      </div>
+	{% endwith %}
+      </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-ok"></span> Submit
+      </button>
+    </div>
+  </form>
 {% endblock %}

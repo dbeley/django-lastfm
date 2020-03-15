@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import configparser
 import pylast
@@ -55,7 +56,7 @@ def get_artist_info(artists):
         artist_dict["Playcount"] = a.get_playcount()
         # dict["Country"] = get_country(dict["URL"])
         list_dict.append(artist_dict)
-    return json.dumps(list_dict)
+    return json.dumps(list_dict, indent=4)
 
 
 def fetch_new_tracks(user, min_timestamp=None, max_timestamp=None):
@@ -76,12 +77,20 @@ def fetch_new_tracks(user, min_timestamp=None, max_timestamp=None):
             complete_tracks = complete_tracks + new_tracks
         except Exception as e:
             print(e)
-    return "\n".join(complete_tracks)
+    csv_content = ["Index;Artist;Album;Title;Date;Timestamp"]
+    for index, new_track in enumerate(reversed(complete_tracks), 1):
+        csv_content.append(
+            f"{index};{new_track.track.artist};{new_track.album};{new_track.track.title};{new_track.playback_date};{new_track.timestamp}"
+        )
+    return "\n".join(csv_content)
 
 
 def get_all_favorite_tracks(user):
     network = lastfmconnect()
     user = network.get_user(user)
     loved_tracks = user.get_loved_tracks(limit=None)
-    loved_tracks = [x.track for x in loved_tracks]
-    return "\n".join(loved_tracks)
+    loved_tracks = [
+        f"{track.track.artist} - {track.track.title}\n"
+        for track in loved_tracks
+    ]
+    return loved_tracks
