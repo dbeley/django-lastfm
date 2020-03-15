@@ -31,8 +31,7 @@ def lastfm_scraper(request):
                     formtimeline.cleaned_data["username"]
                 )
                 return HttpResponse(content, content_type="text/plain")
-    if request.method == "POST":
-        if "formfavorite" in request.POST:
+        elif "formfavorite" in request.POST:
             # create a form instance and populate it with data from the request:
             try:
                 formfavorite = LastfmAllFavoriteTracks(request.POST)
@@ -45,8 +44,7 @@ def lastfm_scraper(request):
                     formfavorite.cleaned_data["username"]
                 )
                 return HttpResponse(content, content_type="text/plain")
-    if request.method == "POST":
-        if "formgenre" in request.POST:
+        elif "formgenre" in request.POST:
             # create a form instance and populate it with data from the request:
             try:
                 formgenre = LastfmArtistsByGenre(request.POST)
@@ -57,8 +55,7 @@ def lastfm_scraper(request):
             if formgenre.is_valid():
                 content = get_artists_genre(formgenre.cleaned_data["genre"])
                 return HttpResponse(content, content_type="text/plain")
-    if request.method == "POST":
-        if "forminfo" in request.POST:
+        elif "forminfo" in request.POST:
             # create a form instance and populate it with data from the request:
             try:
                 forminfo = LastfmArtistInformation(request.POST)

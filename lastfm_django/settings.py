@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def get_secret(BASE_DIR, config_file):
     try:
-        CONFIG = configparser.ConfigParser()
+        CONFIG = configparser.RawConfigParser()
         CONFIG.read(os.path.join(BASE_DIR, config_file))
         return CONFIG["django"]["SECRET_KEY"]
     except Exception as e:
@@ -140,7 +140,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
-
-CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 django_heroku.settings(locals())
