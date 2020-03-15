@@ -83,8 +83,6 @@ def format_playlist(playlist_tracks, title, csv):
     else:
         headers_message = [title]
 
-    # Reversed order so it goes from 10 to 1
-    # for index, track in reversed(list(enumerate(playlist_tracks, 1))):
     for index, track in list(enumerate(playlist_tracks, 1)):
         if csv:
             list_message.append(
@@ -94,7 +92,6 @@ def format_playlist(playlist_tracks, title, csv):
             list_message.append(
                 f"{str(index).zfill(2)}: {track[0].artist} - {track[0].title} ({track[1]} plays)"
             )
-    list_message.insert(0, headers_message[0])
-    # uncomment if two items in headers_message
-    # list_message.append(headers_message[1])
+    if not csv:
+        list_message.insert(0, headers_message[0])
     return "\n".join(list_message)
