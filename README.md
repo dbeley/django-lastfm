@@ -1,4 +1,4 @@
-# lastfm_django
+# django-lastfm
 
 <a href="pictures/image.png"><img src="pictures/image.png" width="390"/></a>
 
