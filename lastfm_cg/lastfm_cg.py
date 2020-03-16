@@ -142,18 +142,16 @@ def get_list_covers(user, nb_covers, timeframe):
                 nb_failed,
             )
         if limit > 1000:
-            print(
+            raise Exception(
                 "Can't extract more than 1000 albums. "
                 "Choose smaller number of rows/columns."
             )
-            exit()
         top_albums = user.get_top_albums(period=timeframe, limit=limit)
         if len(top_albums) != limit:
-            print(
+            raise Exception(
                 "Not enough albums played in the selected timeframe. "
                 "Choose a lower rows/columns value or another timeframe."
             )
-            exit()
         top_albums = top_albums[-nb_failed:]
         nb_failed = 0
         list_covers_partial = extract_covers_from_top_albums(top_albums)
