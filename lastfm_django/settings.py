@@ -29,9 +29,7 @@ def get_secret(BASE_DIR, config_file):
         return CONFIG["django"]["SECRET_KEY"]
     except Exception as e:
         print(
-            "Error with the config file. Be sure to have a valid "
-            "config file. Error : %s",
-            e,
+            f"Error with the config file. Be sure to have a valid config file. Error : {e}.",
         )
         return os.environ["DJANGO_SECRET_KEY"]
 
