@@ -40,6 +40,7 @@ def get_secret(BASE_DIR, config_file):
 SECRET_KEY = get_secret(BASE_DIR, "secret.ini")
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
 DEBUG = False
 
 ALLOWED_HOSTS = []
@@ -59,6 +60,7 @@ INSTALLED_APPS = [
     "lastfm_scraper",
     "widget_tweaks",
     "bootstrap4",
+    "django_celery_results",
 ]
 
 MIDDLEWARE = [
@@ -140,5 +142,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+
+CELERY_BROKER_URL = os.environ["REDIS_URL"]
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = "django-cache"
 
 django_heroku.settings(locals())

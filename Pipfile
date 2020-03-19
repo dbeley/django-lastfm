@@ -15,6 +15,9 @@ gunicorn = "*"
 pylast = "*"
 requests = "*"
 django-widget-tweaks = "*"
+redis = "*"
+celery = "*"
+django-celery-results = "*"
 
 [requires]
 python_version = "3.8"
