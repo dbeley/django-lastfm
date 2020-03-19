@@ -18,7 +18,7 @@ def get_artists_genre(genres):
                 for x in network.get_tag(genre).get_top_artists(limit=1000)
             ]
         except Exception as e:
-            print("%s", e)
+            print(e)
     return "\n".join(list_artists)
 
 

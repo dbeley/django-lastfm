@@ -30,7 +30,6 @@ def lastfm_scraper(request):
             # check whether it's valid:
             if formtimeline.is_valid():
                 try:
-                    print("dégbut fetch new tracks")
                     content = fetch_new_tracks.delay(
                         formtimeline.cleaned_data["username"]
                     )
