@@ -26,6 +26,12 @@ api_key=api_key_here
 api_secret=api_secret_here
 ```
 
+### .env file
+
+```
+REDIS_URLS=redis://localhost
+```
+
 ### Environment variables
 
 If you can't use ini files (i.e. when deploying with heroku), you can use those environment variables:
@@ -34,3 +40,5 @@ If you can't use ini files (i.e. when deploying with heroku), you can use those 
 - `PYLAST_API_KEY`
 - `PYLAST_API_SECRET`
 - `DJANGO_SECRET_KEY`
+- `REDIS_URL`
+
