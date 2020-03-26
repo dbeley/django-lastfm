@@ -4,14 +4,20 @@ services:
   redis:
     image: redis
   web:
+    container_name: lastfm_django
     build: .
     command: gunicorn lastfm_django.wsgi --bind 0.0.0.0:8000
     volumes:
       - .:/code
-    ports:
-      - "8000:8000"
+        # ports:
+        #   - "8000:8000"
     depends_on:
       - redis
+    labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.lastfm_django.entrypoints=insecure"
+        - "traefik.http.routers.lastfm_django.rule=Host(`lastfm.$DOMAIN`)"
+        - "traefik.http.services.lastfm_django.loadbalancer.server.port=8000"
   celery:
     build: .
     command: celery -A lastfm_django worker -l info
@@ -22,3 +28,8 @@ services:
       - web
     environment:
       - REDIS_URL=redis://redis:6379
+
+networks:
+    default:
+        external:
+            name: $DEFAULT_NETWORK
