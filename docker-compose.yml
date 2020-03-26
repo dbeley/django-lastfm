@@ -15,9 +15,10 @@ services:
       - redis
     labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.lastfm_django.entrypoints=insecure"
+        - "traefik.http.routers.lastfm_django.entrypoints=secure"
         - "traefik.http.routers.lastfm_django.rule=Host(`lastfm.$DOMAIN`)"
         - "traefik.http.services.lastfm_django.loadbalancer.server.port=8000"
+        - "traefik.http.routers.lastfm_django.tls.certresolver=le"
   celery:
     build: .
     command: celery -A lastfm_django worker -l info
