@@ -18,6 +18,8 @@ django-widget-tweaks = "*"
 redis = "*"
 celery = "*"
 django-celery-results = "*"
+pandas = "*"
+openpyxl = "*"
 
 [requires]
 python_version = "3.8"

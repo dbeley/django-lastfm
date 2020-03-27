@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from celery import shared_task
 import json
+import pandas as pd
 from .lastfm_scraper import lastfmconnect
 
 
@@ -59,12 +60,20 @@ def fetch_new_tracks(user, min_timestamp=None, max_timestamp=None):
             complete_tracks = complete_tracks + new_tracks
         except Exception as e:
             print(e)
-    csv_content = ["Index;Artist;Album;Title;Date;Timestamp"]
-    for index, new_track in enumerate(reversed(complete_tracks), 1):
-        csv_content.append(
-            f"{index};{new_track.track.artist};{new_track.album};{new_track.track.title};{new_track.playback_date};{new_track.timestamp}"
+    list_dict = []
+    for index, track in enumerate(reversed(complete_tracks), 1):
+        list_dict.append(
+            {
+                "Index": index,
+                "Artist": track.track.artist.name,
+                "Album": track.album,
+                "Title": track.track.title,
+                # "Date": track.playback_date,
+                "Date": track.timestamp,
+            }
         )
-    return "\n".join(csv_content)
+    df = pd.DataFrame(list_dict)
+    return df.to_json()
 
 
 @shared_task

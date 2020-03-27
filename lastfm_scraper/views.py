@@ -15,6 +15,7 @@ from .tasks import (
     get_artists_genre,
 )
 import time
+import pandas as pd
 
 
 # Create your views here.
@@ -35,10 +36,23 @@ def lastfm_scraper(request):
                     )
                     while content.state not in ("SUCCESS", "FAILURE"):
                         time.sleep(0.5)
-                    content = content.get()
+                    # content = content.get()
+                    content = pd.read_json(content.get())
                 except Exception as e:
                     return HttpResponseNotFound(e)
-                return HttpResponse(content, content_type="text/plain")
+                # return HttpResponse(content, content_type="text/plain")
+                response = HttpResponse(content_type="text/plain")
+                if formtimeline.cleaned_data["export_format"] == "csv":
+                    response[
+                        "Content-Disposition"
+                    ] = f"attachment; filename=timeline_{formtimeline.cleaned_data['username']}.csv"
+                    content.to_csv(response, index=False, sep="\t")
+                elif formtimeline.cleaned_data["export_format"] == "xlsx":
+                    response[
+                        "Content-Disposition"
+                    ] = f"attachment; filename=timeline_{formtimeline.cleaned_data['username']}.xlsx"
+                    content.to_excel(response, index=False)
+                return response
         elif "formfavorite" in request.POST:
             # create a form instance and populate it with data from the request:
             try:
