@@ -9,7 +9,7 @@ services:
     container_name: lastfm_django
     build: .
     restart: always
-    command: bash -c "python manage.py migrate && gunicorn lastfm_django.wsgi --bind 0.0.0.0:8000 & celery -A lastfm_django worker -l info"
+    command: bash -c "python manage.py migrate && gunicorn lastfm_django.wsgi --bind 0.0.0.0:8000 --timeout 6000 & celery -A lastfm_django worker -l info"
     volumes:
       - .:/code
     depends_on:
