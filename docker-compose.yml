@@ -1,34 +1,27 @@
 version: '3'
 
 services:
-  redis:
+  lastfm_django-redis:
+    container_name: lastfm_django-redis
     image: redis
+    restart: always
   web:
     container_name: lastfm_django
     build: .
-    command: gunicorn lastfm_django.wsgi --bind 0.0.0.0:8000
+    restart: always
+    command: bash -c "python manage.py migrate && gunicorn lastfm_django.wsgi --bind 0.0.0.0:8000 & celery -A lastfm_django worker -l info"
     volumes:
       - .:/code
-        # ports:
-        #   - "8000:8000"
     depends_on:
-      - redis
+      - lastfm_django-redis
     labels:
         - "traefik.enable=true"
         - "traefik.http.routers.lastfm_django.entrypoints=secure"
         - "traefik.http.routers.lastfm_django.rule=Host(`lastfm.$DOMAIN`)"
         - "traefik.http.services.lastfm_django.loadbalancer.server.port=8000"
         - "traefik.http.routers.lastfm_django.tls.certresolver=le"
-  celery:
-    build: .
-    command: celery -A lastfm_django worker -l info
-    volumes:
-      - .:/code
-    depends_on:
-      - redis
-      - web
     environment:
-      - REDIS_URL=redis://redis:6379
+      - REDIS_URL=redis://lastfm_django-redis:6379
 
 networks:
     default:
