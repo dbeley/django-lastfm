@@ -15,11 +15,12 @@ def get_artists_genre(genres):
     for genre in genres:
         try:
             list_artists += [
-                x.item.name
-                for x in network.get_tag(genre).get_top_artists(limit=1000)
+                x.item.name for x in network.get_tag(genre).get_top_artists(limit=1000)
             ]
         except Exception as e:
             print(e)
+    # remove duplicates
+    list_artists = list(set(list_artists))
     return "\n".join(list_artists)
 
 
@@ -82,7 +83,6 @@ def get_all_favorite_tracks(user):
     user = network.get_user(user)
     loved_tracks = user.get_loved_tracks(limit=None)
     loved_tracks = [
-        f"{track.track.artist} - {track.track.title}\n"
-        for track in loved_tracks
+        f"{track.track.artist} - {track.track.title}\n" for track in loved_tracks
     ]
     return loved_tracks

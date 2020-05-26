@@ -47,7 +47,7 @@
 	</form>
 </div>
   <div class="tab-pane fade" id="genre" role="tabpanel" aria-labelledby="genre-tab">
-  	  <p>Export a list of artists for one or several genres (each genres will add 100 artists, duplicates might be found).</p>
+  	  <p>Export a list of artists for one or several genres (each genres will add at most 1000 artists, duplicates will be removed).</p>
 	<form action="" method="post" class="form">
     	{% csrf_token %}
     	{% bootstrap_form formgenre layout='inline' %}
