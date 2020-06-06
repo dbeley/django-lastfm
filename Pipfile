@@ -20,6 +20,7 @@ celery = "*"
 django-celery-results = "*"
 pandas = "*"
 openpyxl = "*"
+future = "*"
 
 [requires]
 python_version = "3.8"
