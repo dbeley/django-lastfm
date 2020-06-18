@@ -1,6 +1,6 @@
 -i https://pypi.org/simple/
 amqp==2.6.0
-asgiref==3.2.7
+asgiref==3.2.9
 beautifulsoup4==4.9.1
 billiard==3.6.3.0
 celery==4.4.5
@@ -27,7 +27,7 @@ pylast==3.2.1
 python-dateutil==2.8.1
 pytz==2020.1
 redis==3.5.3
-requests==2.23.0
+requests==2.24.0
 six==1.15.0
 soupsieve==2.0.1
 sqlparse==0.3.1
