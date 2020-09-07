@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .forms import LastfmCGForm
 from django.http import HttpResponse
 from .lastfm_cg import lastfmconnect, get_lastfm_collage
+import datetime
 
 
 def get_lastfm_cg(form):
@@ -32,7 +33,7 @@ def lastfm_cg(request):
             response = HttpResponse(content_type="image/png")
             response[
                 "Content-Disposition"
-            ] = f"attachment; filename={form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_{form.cleaned_data['rows']}x{form.cleaned_data['columns']}.png"
+            ] = f"attachment; filename={form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_{form.cleaned_data['rows']}x{form.cleaned_data['columns']}_{datetime.timestamp(datetime.now())}.png"
             content.save(response, "PNG")
             return response
 
