@@ -27,15 +27,43 @@
       {{ hidden }}
     {% endfor %}
 
-    {% for field in form.visible_fields %}
       <div class="form-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field|add_class:'form-control' }}
-        {% for error in field.errors %}
+        <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+        {{ form.username|add_class:'form-control' }}
+        {% for error in form.username.errors %}
           <span class="help-block">{{ error }}</span>
         {% endfor %}
       </div>
-    {% endfor %}
+      <div class="form-group">
+        <label for="{{ form.timeframe.id_for_label }}">{{ form.timeframe.label }}</label>
+        {{ form.timeframe|add_class:'form-control' }}
+        {% for error in form.timeframe.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.rows.id_for_label }}">{{ form.rows.label }}</label>
+        {{ form.rows|add_class:'form-control' }}
+        {% for error in form.rows.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.columns.id_for_label }}">{{ form.columns.label }}</label>
+        {{ form.columns|add_class:'form-control' }}
+        {% for error in form.columns.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+    {% with WIDGET_ERROR_CLASS='help-block' WIDGET_REQUIRED_CLASS='form-check' %}
+      <div class="form-check">
+    	{% render_field form.top100 %}
+        <label for="{{ form.top100.id_for_label }}">{{ form.top100.label }}</label>
+      </div>
+	{% endwith %}
+      </div>
 
     <div class="form-group">
       <button type="submit" class="btn btn-primary">
