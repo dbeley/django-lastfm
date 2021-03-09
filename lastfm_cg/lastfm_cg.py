@@ -163,12 +163,6 @@ def get_list_covers(user, nb_covers, timeframe):
         # keep track of all the failed ones, in case of several iterations
         nb_failed_global += nb_failed
         limit = nb_covers + nb_failed_global
-        if nb_failed > 0:
-            print(
-                "Some covers weren't properly extracted. "
-                "Adding %s albums to the grid.",
-                nb_failed,
-            )
         if limit > 1000:
             raise Exception(
                 "Can't extract more than 1000 albums. "
