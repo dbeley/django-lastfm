@@ -29,9 +29,13 @@ def lastfmconnect():  # pragma: no cover
     return network
 
 
-def get_lastfm_collage(user, timeframe, rows, columns):
-    list_covers = get_list_covers(user, rows * columns, timeframe)
-    image = create_image(list_covers, columns)
+def get_lastfm_collage(user, timeframe, rows, columns, top100):
+    if top100:
+        list_covers = get_list_covers(user, 100, timeframe)
+        image = create_top100_image(list_covers)
+    else:
+        list_covers = get_list_covers(user, rows * columns, timeframe)
+        image = create_image(list_covers, columns)
     return image
 
 
@@ -55,10 +59,35 @@ def create_image(list_covers, nb_columns):
         while len(list_arrays) < nb_columns:
             i += 1
             list_arrays.append(
-                np.asarray(
-                    np.zeros((min_shape[0], min_shape[1], 4), dtype=np.uint8)
-                )
+                np.asarray(np.zeros((min_shape[0], min_shape[1], 4), dtype=np.uint8))
             )
+        list_comb.append(np.hstack(list_arrays))
+
+    # combine rows to create image
+    list_comb_arrays = [np.asarray(i) for i in list_comb]
+    imgs_comb = np.vstack(list_comb_arrays)
+    imgs_comb = Image.fromarray(imgs_comb)
+    return imgs_comb
+
+
+def create_top100_image(list_covers):
+    # for now the number of column on each row must be a multiple of the first element to work properly
+    list_columns = [5, 5, 10, 10, 10, 15, 15, 15, 15]
+    imgs = [Image.open(BytesIO(i)).convert("RGB") for i in list_covers]
+
+    min_shape = sorted([(np.sum(i.size), i.size) for i in imgs])[0][1]
+
+    list_comb = []
+    i = 0
+    chunks = []
+
+    for chunksize in list_columns:
+        chunks.append(imgs[i : i + chunksize])
+        i += chunksize
+
+    for row in chunks:
+        shape = (int(min_shape[0] / (len(row) / 5)), int(min_shape[1] / (len(row) / 5)))
+        list_arrays = [np.asarray(i.resize(shape)) for i in row]
         list_comb.append(np.hstack(list_arrays))
 
     # combine rows to create image
@@ -85,8 +114,7 @@ def get_cover_for_album(index, album):
             )
             if nb_tries > 4:
                 print(
-                    "Couldn't retrieve cover url for %s - %s after "
-                    "4 tries.",
+                    "Couldn't retrieve cover url for %s - %s after " "4 tries.",
                     index,
                     album.item,
                 )

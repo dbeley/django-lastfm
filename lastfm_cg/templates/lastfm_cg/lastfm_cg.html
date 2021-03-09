@@ -18,19 +18,6 @@
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
 
-{# Display a form #}
-{# comment #}
-{# endcomment #}
-{% comment %}
-<form action="" method="post" class="form">
-    {% csrf_token %}
-    {% bootstrap_form form layout='inline' %}
-    {% buttons %}
-        <button type="submit" class="btn btn-primary">Submit</button>
-    {% endbuttons %}
-</form>
-{% endcomment %}
-
 <hr>
 
   <form method="post">

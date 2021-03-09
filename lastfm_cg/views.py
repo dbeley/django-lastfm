@@ -10,10 +10,11 @@ def get_lastfm_cg(form):
     timeframe = form.cleaned_data["timeframe"]
     rows = form.cleaned_data["rows"]
     columns = form.cleaned_data["columns"]
+    top100 = form.cleaned_data["top100"]
 
     network = lastfmconnect()
     user = network.get_user(username)
-    return get_lastfm_collage(user, timeframe, rows, columns)
+    return get_lastfm_collage(user, timeframe, rows, columns, top100)
 
 
 # Create your views here.
@@ -31,9 +32,14 @@ def lastfm_cg(request):
                 print(e)
                 return HttpResponse(content=e, status=400)
             response = HttpResponse(content_type="image/png")
-            response[
-                "Content-Disposition"
-            ] = f"attachment; filename={form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_{form.cleaned_data['rows']}x{form.cleaned_data['columns']}_{datetime.timestamp(datetime.now())}.png"
+            if form.cleaned_data["top100"]:
+                response[
+                    "Content-Disposition"
+                ] = f"attachment; filename={form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_top100_{datetime.timestamp(datetime.now())}.png"
+            else:
+                response[
+                    "Content-Disposition"
+                ] = f"attachment; filename={form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_{form.cleaned_data['rows']}x{form.cleaned_data['columns']}_{datetime.timestamp(datetime.now())}.png"
             content.save(response, "PNG")
             return response
 

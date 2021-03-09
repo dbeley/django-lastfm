@@ -12,9 +12,12 @@ class LastfmCGForm(forms.Form):
         ("overall", "overall"),
     )
     timeframe = forms.ChoiceField(label="Timeframe", choices=TIMEFRAME_CHOICES)
-    rows = forms.IntegerField(
-        label="Row number", min_value=1, max_value=100, initial=5
-    )
+    rows = forms.IntegerField(label="Row number", min_value=1, max_value=100, initial=5)
     columns = forms.IntegerField(
         label="Column number", min_value=1, max_value=100, initial=5
+    )
+    top100 = forms.BooleanField(
+        label="Top 100 (special collage mode, will override row and column number)",
+        required=False,
+        initial=False,
     )
