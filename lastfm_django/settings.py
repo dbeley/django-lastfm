@@ -145,4 +145,6 @@ CELERY_BROKER_URL = os.environ.get("REDIS_URL", "")
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "django-cache"
 
+CSRF_TRUSTED_ORIGINS = ["https://*.dbeley.ovh", "https://*.127.0.0.1"]
+
 django_heroku.settings(locals())
