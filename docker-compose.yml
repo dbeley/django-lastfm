@@ -20,7 +20,9 @@ services:
         - "traefik.http.routers.lastfm_django.tls.certresolver=le"
     environment:
         - REDIS_URL=redis://lastfm_django-redis:6379
+        - ALLOWED_HOSTS=$ALLOWED_HOSTS
 
 networks:
     default:
         name: $DEFAULT_NETWORK
+        external: true
