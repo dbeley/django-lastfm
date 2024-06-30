@@ -31,7 +31,7 @@ api_secret=api_secret_here
 ```
 REDIS_URLS=redis://localhost
 # optional, for docker + traefik
-DEFAULT_NETWORK=trafik-network
+DEFAULT_NETWORK=traefik-network
 DOMAIN=localhost
 ```
 

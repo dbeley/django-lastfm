@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   lastfm_django-redis:
     container_name: lastfm_django-redis

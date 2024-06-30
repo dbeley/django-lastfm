@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import configparser
 import os
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -146,5 +145,3 @@ CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "django-cache"
 
 CSRF_TRUSTED_ORIGINS = ["https://*.dbeley.ovh", "https://*.127.0.0.1"]
-
-django_heroku.settings(locals())
