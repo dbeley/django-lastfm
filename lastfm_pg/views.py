@@ -15,13 +15,18 @@ def get_lastfm_pg(form):
     only_favorites = form.cleaned_data["only_favorites"]
     csv = form.cleaned_data["csv"]
 
-    logger.info("Getting playlist for %s (%s , size %s, only_favorites %s, csv %s", username, timeframe, playlist_size, only_favorites, csv)
+    logger.info(
+        "Getting playlist for %s (%s , size %s, only_favorites %s, csv %s",
+        username,
+        timeframe,
+        playlist_size,
+        only_favorites,
+        csv,
+    )
 
     network = lastfmconnect()
     user = network.get_user(username)
-    playlist = get_lastfm_playlist(
-        user, timeframe, playlist_size, only_favorites
-    )
+    playlist = get_lastfm_playlist(user, timeframe, playlist_size, only_favorites)
     return format_playlist(
         playlist, f"Top {playlist_size} tracks of {username}, {timeframe}", csv
     )

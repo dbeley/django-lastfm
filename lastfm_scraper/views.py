@@ -20,6 +20,7 @@ import logging
 
 logger = logging.getLogger()
 
+
 # Create your views here.
 def lastfm_scraper(request):
     # if this is a POST request we need to process the form data
@@ -33,7 +34,10 @@ def lastfm_scraper(request):
             # check whether it's valid:
             if formtimeline.is_valid():
                 try:
-                    logger.info("Fetching complete timeline for %s", formtimeline.cleaned_data["username"])
+                    logger.info(
+                        "Fetching complete timeline for %s",
+                        formtimeline.cleaned_data["username"],
+                    )
                     content = fetch_new_tracks.delay(
                         formtimeline.cleaned_data["username"]
                     )
@@ -46,14 +50,14 @@ def lastfm_scraper(request):
                 # return HttpResponse(content, content_type="text/plain")
                 response = HttpResponse(content_type="text/plain")
                 if formtimeline.cleaned_data["export_format"] == "csv":
-                    response[
-                        "Content-Disposition"
-                    ] = f"attachment; filename=timeline_{formtimeline.cleaned_data['username']}.csv"
+                    response["Content-Disposition"] = (
+                        f"attachment; filename=timeline_{formtimeline.cleaned_data['username']}.csv"
+                    )
                     content.to_csv(response, index=False, sep="\t")
                 elif formtimeline.cleaned_data["export_format"] == "xlsx":
-                    response[
-                        "Content-Disposition"
-                    ] = f"attachment; filename=timeline_{formtimeline.cleaned_data['username']}.xlsx"
+                    response["Content-Disposition"] = (
+                        f"attachment; filename=timeline_{formtimeline.cleaned_data['username']}.xlsx"
+                    )
                     content.to_excel(response, index=False)
                 return response
         elif "formfavorite" in request.POST:
@@ -65,7 +69,10 @@ def lastfm_scraper(request):
             # check whether it's valid:
             if formfavorite.is_valid():
                 try:
-                    logger.info("Fetching favorite tracks for %s", formfavorite.cleaned_data["username"])
+                    logger.info(
+                        "Fetching favorite tracks for %s",
+                        formfavorite.cleaned_data["username"],
+                    )
                     content = get_all_favorite_tracks.delay(
                         formfavorite.cleaned_data["username"]
                     )
@@ -84,10 +91,10 @@ def lastfm_scraper(request):
             # check whether it's valid:
             if formgenre.is_valid():
                 try:
-                    logger.info("Fetching artists for genre %s", formgenre.cleaned_data["genre"])
-                    content = get_artists_genre.delay(
-                        formgenre.cleaned_data["genre"]
+                    logger.info(
+                        "Fetching artists for genre %s", formgenre.cleaned_data["genre"]
                     )
+                    content = get_artists_genre.delay(formgenre.cleaned_data["genre"])
                     while content.state not in ("SUCCESS", "FAILURE"):
                         time.sleep(0.5)
                     content = content.get()
@@ -103,10 +110,10 @@ def lastfm_scraper(request):
             # check whether it's valid:
             if forminfo.is_valid():
                 try:
-                    logger.info("Fetching artists info for %s", forminfo.cleaned_data["artist"])
-                    content = get_artist_info.delay(
-                        forminfo.cleaned_data["artist"]
+                    logger.info(
+                        "Fetching artists info for %s", forminfo.cleaned_data["artist"]
                     )
+                    content = get_artist_info.delay(forminfo.cleaned_data["artist"])
                     while content.state not in ("SUCCESS", "FAILURE"):
                         time.sleep(0.5)
                     content = content.get()

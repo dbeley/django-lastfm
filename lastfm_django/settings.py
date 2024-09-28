@@ -40,8 +40,8 @@ def get_secret(BASE_DIR, config_file):
 SECRET_KEY = get_secret(BASE_DIR, "secret.ini")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = False
+# DEBUG = True
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
 

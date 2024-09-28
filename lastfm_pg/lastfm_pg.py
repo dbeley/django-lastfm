@@ -12,10 +12,6 @@ def lastfmconnect():  # pragma: no cover
         api_key = config["lastfm"]["api_key"]
         api_secret = config["lastfm"]["api_secret"]
         username = config["lastfm"]["username"]
-
-        network = pylast.LastFMNetwork(
-            api_key=api_key, api_secret=api_secret, username=username
-        )
     except Exception as e:
         print(e)
         api_key = os.environ.get("PYLAST_API_KEY", "").strip()
@@ -39,9 +35,7 @@ def get_lastfm_playlist(user, timeframe, playlist_length, only_favorites=True):
 
             # List of tracks presents in both lists
             playlist_potential_tracks = [
-                (x.weight, x.item)
-                for x in top_tracks
-                if x.item in loved_tracks
+                (x.weight, x.item) for x in top_tracks if x.item in loved_tracks
             ]
         except Exception as e:
             print(e)
@@ -61,9 +55,7 @@ def get_lastfm_playlist(user, timeframe, playlist_length, only_favorites=True):
         if len(playlist_tracks) >= playlist_length:
             break
         # randomize to not take the first item by alphabetical order
-        randomized_dd_tracks = random.sample(
-            dd_tracks[count], len(dd_tracks[count])
-        )
+        randomized_dd_tracks = random.sample(dd_tracks[count], len(dd_tracks[count]))
         for track in randomized_dd_tracks:
             playlist_tracks.append([track, count])
             if len(playlist_tracks) >= playlist_length:

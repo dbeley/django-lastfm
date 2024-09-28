@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 
@@ -21,4 +22,5 @@ urlpatterns = [
     path("", include("lastfm_pg.urls")),
     path("lastfm_cg", include("lastfm_cg.urls")),
     path("scraping", include("lastfm_scraper.urls")),
+    path("wordcloud", include("lastfm_wordcloud.urls")),
 ]

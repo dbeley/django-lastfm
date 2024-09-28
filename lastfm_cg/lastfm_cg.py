@@ -14,10 +14,6 @@ def lastfmconnect():  # pragma: no cover
         api_key = config["lastfm"]["api_key"]
         api_secret = config["lastfm"]["api_secret"]
         username = config["lastfm"]["username"]
-
-        network = pylast.LastFMNetwork(
-            api_key=api_key, api_secret=api_secret, username=username
-        )
     except Exception as e:
         print(e)
         api_key = os.environ["PYLAST_API_KEY"].strip()

@@ -15,7 +15,14 @@ def get_lastfm_cg(form):
     columns = form.cleaned_data["columns"]
     top100 = form.cleaned_data["top100"]
 
-    logger.info("Getting collage for %s (%s , rows %s, columns %s, top100 %s", username, timeframe, rows, columns, top100)
+    logger.info(
+        "Getting collage for %s (%s , rows %s, columns %s, top100 %s",
+        username,
+        timeframe,
+        rows,
+        columns,
+        top100,
+    )
 
     network = lastfmconnect()
     user = network.get_user(username)
@@ -38,13 +45,13 @@ def lastfm_cg(request):
                 return HttpResponse(content=e, status=400)
             response = HttpResponse(content_type="image/png")
             if form.cleaned_data["top100"]:
-                response[
-                    "Content-Disposition"
-                ] = f"attachment; filename={form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_top100_{int(datetime.timestamp(datetime.now()))}.png"
+                response["Content-Disposition"] = (
+                    f"attachment; filename={form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_top100_{int(datetime.timestamp(datetime.now()))}.png"
+                )
             else:
-                response[
-                    "Content-Disposition"
-                ] = f"attachment; filename={form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_{form.cleaned_data['rows']}x{form.cleaned_data['columns']}_{int(datetime.timestamp(datetime.now()))}.png"
+                response["Content-Disposition"] = (
+                    f"attachment; filename={form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_{form.cleaned_data['rows']}x{form.cleaned_data['columns']}_{int(datetime.timestamp(datetime.now()))}.png"
+                )
             content.save(response, "PNG")
             return response
 
