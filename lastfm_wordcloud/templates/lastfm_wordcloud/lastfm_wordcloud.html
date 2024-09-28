@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+{% load widget_tweaks %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block page_content %}
+<h1> Lastfm wordcloud generator </h1>
+
+<hr class="col-xs-12">
+
+<img class="special-img-class" style="width: 30%;" src="https://github.com/dbeley/lastfm-wordcloud/raw/main/imgs/wordcloud1.png" alt="lastfm_wordcloud image" title="">
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<hr>
+
+  <form method="post">
+    {% csrf_token %}
+
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+        {{ form.username|add_class:'form-control' }}
+        {% for error in form.username.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.timeframe.id_for_label }}">{{ form.timeframe.label }}</label>
+        {{ form.timeframe|add_class:'form-control' }}
+        {% for error in form.timeframe.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.artists_count.id_for_label }}">{{ form.artists_count.label }}</label>
+        {{ form.artists_count|add_class:'form-control' }}
+        {% for error in form.artists_count.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.top_tags_count.id_for_label }}">{{ form.top_tags_count.label }}</label>
+        {{ form.top_tags_count|add_class:'form-control' }}
+        {% for error in form.top_tags_count.errors %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+    {% with WIDGET_ERROR_CLASS='help-block' WIDGET_REQUIRED_CLASS='form-check' %}
+      <div class="form-check">
+    	{% render_field form.top100 %}
+        <label for="{{ form.top100.id_for_label }}">{{ form.top100.label }}</label>
+      </div>
+	{% endwith %}
+      </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-ok"></span> Submit
+      </button>
+    </div>
+  </form>
+{% endblock %}
