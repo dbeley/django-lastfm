@@ -52,4 +52,4 @@ def lastfm_cg(request):
     else:
         form = LastfmCGForm()
 
-    return render(request, "lastfm_wordcloud/lastfm_wordcloud.html", {"form": form})
+    return render(request, "lastfm_cg/lastfm_cg.html", {"form": form})
