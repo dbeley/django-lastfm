@@ -19,6 +19,8 @@ in pkgs.mkShell {
     pythonPackages.requests
     pythonPackages.redis
     pythonPackages.gunicorn
+    pythonPackages.wordcloud
+    pythonPackages.black
   ];
 
 }
