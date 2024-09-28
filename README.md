@@ -29,7 +29,7 @@ api_secret=api_secret_here
 ### .env file
 
 ```
-REDIS_URLS=redis://domain.tld
+REDIS_URL=redis://domain.tld
 # optional, for docker + traefik
 DEFAULT_NETWORK=traefik-network
 DOMAIN=domain.tld
