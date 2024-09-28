@@ -3,6 +3,9 @@ from django.http import HttpResponse
 
 from .forms import LastfmPGForm
 from .lastfm_pg import get_lastfm_playlist, lastfmconnect, format_playlist
+import logging
+
+logger = logging.getLogger()
 
 
 def get_lastfm_pg(form):
@@ -11,6 +14,8 @@ def get_lastfm_pg(form):
     playlist_size = form.cleaned_data["playlist_size"]
     only_favorites = form.cleaned_data["only_favorites"]
     csv = form.cleaned_data["csv"]
+
+    logger.info("Getting playlist for %s (%s , size %s, only_favorites %s, csv %s", username, timeframe, playlist_size, only_favorites, csv)
 
     network = lastfmconnect()
     user = network.get_user(username)

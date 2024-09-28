@@ -16,7 +16,9 @@ from .tasks import (
 )
 import time
 import pandas as pd
+import logging
 
+logger = logging.getLogger()
 
 # Create your views here.
 def lastfm_scraper(request):
@@ -31,6 +33,7 @@ def lastfm_scraper(request):
             # check whether it's valid:
             if formtimeline.is_valid():
                 try:
+                    logger.info("Fetching complete timeline for %s", formtimeline.cleaned_data["username"])
                     content = fetch_new_tracks.delay(
                         formtimeline.cleaned_data["username"]
                     )
@@ -62,6 +65,7 @@ def lastfm_scraper(request):
             # check whether it's valid:
             if formfavorite.is_valid():
                 try:
+                    logger.info("Fetching favorite tracks for %s", formfavorite.cleaned_data["username"])
                     content = get_all_favorite_tracks.delay(
                         formfavorite.cleaned_data["username"]
                     )
@@ -80,6 +84,7 @@ def lastfm_scraper(request):
             # check whether it's valid:
             if formgenre.is_valid():
                 try:
+                    logger.info("Fetching artists for genre %s", formgenre.cleaned_data["genre"])
                     content = get_artists_genre.delay(
                         formgenre.cleaned_data["genre"]
                     )
@@ -98,6 +103,7 @@ def lastfm_scraper(request):
             # check whether it's valid:
             if forminfo.is_valid():
                 try:
+                    logger.info("Fetching artists info for %s", forminfo.cleaned_data["artist"])
                     content = get_artist_info.delay(
                         forminfo.cleaned_data["artist"]
                     )

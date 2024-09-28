@@ -3,6 +3,9 @@ from .forms import LastfmCGForm
 from django.http import HttpResponse
 from .lastfm_cg import lastfmconnect, get_lastfm_collage
 from datetime import datetime
+import logging
+
+logger = logging.getLogger()
 
 
 def get_lastfm_cg(form):
@@ -11,6 +14,8 @@ def get_lastfm_cg(form):
     rows = form.cleaned_data["rows"]
     columns = form.cleaned_data["columns"]
     top100 = form.cleaned_data["top100"]
+
+    logger.info("Getting collage for %s (%s , rows %s, columns %s, top100 %s", username, timeframe, rows, columns, top100)
 
     network = lastfmconnect()
     user = network.get_user(username)
@@ -47,4 +52,4 @@ def lastfm_cg(request):
     else:
         form = LastfmCGForm()
 
-    return render(request, "lastfm_cg/lastfm_cg.html", {"form": form})
+    return render(request, "lastfm_wordcloud/lastfm_wordcloud.html", {"form": form})

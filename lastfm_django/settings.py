@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import configparser
 import os
+import logging
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+logging.getLogger("pylast").setLevel(logging.WARNING)
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -53,7 +56,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "lastfm_pg",
-    "lastfm_cg",
+    "lastfm_wordcloud",
     "lastfm_scraper",
     "widget_tweaks",
     "bootstrap4",
