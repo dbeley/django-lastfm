@@ -43,7 +43,7 @@ def lastfm_wordcloud(request):
                 return HttpResponse(content=e, status=400)
             response = HttpResponse(content.getvalue(), content_type="image/png")
             response["Content-Disposition"] = (
-                f"attachment; filename={form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_{int(datetime.timestamp(datetime.now()))}.png"
+                f"attachment; filename=wordcloud_{form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_{int(datetime.timestamp(datetime.now()))}.png"
             )
             return response
 
