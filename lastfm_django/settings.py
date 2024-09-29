@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "lastfm_pg",
+    "lastfm_cg",
     "lastfm_wordcloud",
     "lastfm_scraper",
     "widget_tweaks",
