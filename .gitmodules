@@ -1,0 +1,18 @@
+[submodule "deps/lastfm_cg"]
+	path = deps/lastfm_cg
+	url = https://github.com/dbeley/lastfm_cg
+[submodule "deps/lastfm_pg"]
+	path = deps/lastfm_pg
+	url = https://github.com/dbeley/lastfm_pg
+[submodule "deps/lastfm-scripts"]
+	path = deps/lastfm-scripts
+	url = https://github.com/dbeley/lastfm-scripts
+[submodule "deps/lastfm-wordcloud"]
+	path = deps/lastfm-wordcloud
+	url = https://github.com/dbeley/lastfm-wordcloud
+[submodule "deps/lastfm_wordcloud"]
+	path = deps/lastfm_wordcloud
+	url = https://github.com/dbeley/lastfm-wordcloud
+[submodule "deps/lastfm_scripts"]
+	path = deps/lastfm_scripts
+	url = https://github.com/dbeley/lastfm-scripts

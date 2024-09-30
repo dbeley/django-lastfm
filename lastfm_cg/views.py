@@ -1,7 +1,9 @@
 from django.shortcuts import render
+
+from deps.lastfm_cg.lastfm_cg.__main__ import get_lastfm_collage
+from lastfm_django.utils import lastfmconnect
 from .forms import LastfmCGForm
 from django.http import HttpResponse
-from .lastfm_cg import lastfmconnect, get_lastfm_collage
 from datetime import datetime
 import logging
 

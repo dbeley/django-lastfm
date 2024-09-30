@@ -1,12 +1,15 @@
 from django.shortcuts import render
+
+from deps.lastfm_wordcloud.lastfm_wordcloud.__main__ import create_lastfm_wordcloud
+from lastfm_django.utils import lastfmconnect
 from .forms import LastfmWCForm
 from django.http import HttpResponse
-from .lastfm_wordcloud import lastfmconnect, create_lastfm_wordcloud
 from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
 
+FORBIDDEN_TAGS = ["seen live", "alternative", "indie", "rock"]
 
 def get_lastfm_wordcloud(form):
     username = form.cleaned_data["username"]
@@ -24,7 +27,7 @@ def get_lastfm_wordcloud(form):
 
     network = lastfmconnect()
     user = network.get_user(username)
-    return create_lastfm_wordcloud(user, timeframe, artists_count, top_tags_count)
+    return create_lastfm_wordcloud(user, timeframe, artists_count, top_tags_count, FORBIDDEN_TAGS)
 
 
 # Create your views here.

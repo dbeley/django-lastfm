@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from deps.lastfm_pg.lastfm_pg.utils import get_lastfm_playlist, format_playlist
+from lastfm_django.utils import lastfmconnect
 from .forms import LastfmPGForm
-from .lastfm_pg import get_lastfm_playlist, lastfmconnect, format_playlist
 import logging
 
 logger = logging.getLogger(__name__)
@@ -28,7 +29,7 @@ def get_lastfm_pg(form):
     user = network.get_user(username)
     playlist = get_lastfm_playlist(user, timeframe, playlist_size, only_favorites)
     return format_playlist(
-        playlist, f"Top {playlist_size} tracks of {username}, {timeframe}", csv
+        playlist, f"Top {playlist_size} tracks of {username}, {timeframe}", csv=True
     )
 
 

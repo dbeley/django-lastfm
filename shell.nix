@@ -20,6 +20,9 @@ in pkgs.mkShell {
     pythonPackages.redis
     pythonPackages.gunicorn
     pythonPackages.wordcloud
+    pythonPackages.mastodon-py
+    pythonPackages.tqdm
+
     pythonPackages.black
   ];
 
