@@ -5,7 +5,7 @@ from .lastfm_wordcloud import lastfmconnect, create_lastfm_wordcloud
 from datetime import datetime
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 def get_lastfm_wordcloud(form):

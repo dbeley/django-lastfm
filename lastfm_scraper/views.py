@@ -18,7 +18,7 @@ import time
 import pandas as pd
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 # Create your views here.

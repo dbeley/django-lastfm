@@ -5,7 +5,7 @@ from .forms import LastfmPGForm
 from .lastfm_pg import get_lastfm_playlist, lastfmconnect, format_playlist
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 def get_lastfm_pg(form):

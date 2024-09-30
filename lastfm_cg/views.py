@@ -5,7 +5,7 @@ from .lastfm_cg import lastfmconnect, get_lastfm_collage
 from datetime import datetime
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 def get_lastfm_cg(form):

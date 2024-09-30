@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 from wordcloud import WordCloud
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 matplotlib.use("Agg")  # Use a non-interactive backend
 forbidden_tags = ["seen live", "indie", "rock", "alternative"]
 
