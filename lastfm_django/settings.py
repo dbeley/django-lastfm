@@ -19,7 +19,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 logging.getLogger("pylast").setLevel(logging.WARNING)
 logging.getLogger("httpx").setLevel(logging.WARNING)
-
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(name)s %(levelname)s %(message)s',
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
