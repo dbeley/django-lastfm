@@ -4,8 +4,9 @@
 
 Simple django site acting as a frontend for:
 
-- [lastfm_cg](https://github.com/dbeley/lastfm_cg): Lastfm collage generator
-- [lastfm_pg](https://github.com/dbeley/lastfm_pg): Lastfm playlist generator
+- [lastfm_cg](https://github.com/dbeley/lastfm_cg): Last.fm collage generator
+- [lastfm_pg](https://github.com/dbeley/lastfm_pg): Last.fm playlist generator
+- [lastfm-wordcloud](https://github.com/dbeley/lastfm-wordcloud): Last.fm wordcloud generator
 - [lastfm-scraper](https://github.com/dbeley/lastfm-scraper): Some lastfm scripts
 
 ## Secrets
