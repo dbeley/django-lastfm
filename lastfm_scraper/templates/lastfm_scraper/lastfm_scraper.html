@@ -8,7 +8,7 @@
 {% bootstrap_javascript jquery='full' %}
 
 {% block page_content %}
-<h1>Lastfm scraping</h3>
+<h1>Last.fm scraping</h3>
 <hr>
 
 <ul class="nav nav-pills mb-3" id="tab" role="tablist">
@@ -27,7 +27,7 @@
 </ul>
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane fade show active" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
-  	  <p>Export all the scrobbles of a lastfm user. The csv format use the tabulation (\t) separator.</p>
+  	  <p>Export all the scrobbles of a last.fm user. The csv format use the tabulation (\t) separator.</p>
   	  <form action="" method="post" class="form">
     	{% csrf_token %}
     	{% bootstrap_form formtimeline layout='inline' %}
@@ -37,7 +37,7 @@
 	</form>
 </div>
   <div class="tab-pane fade" id="favorite" role="tabpanel" aria-labelledby="favorite-tab">
-  	  <p>Export a list of all favorite tracks of a lastfm user.</p>
+  	  <p>Export a list of all favorite tracks of a last.fm user.</p>
 	<form action="" method="post" class="form">
     	{% csrf_token %}
     	{% bootstrap_form formfavorite layout='inline' %}
