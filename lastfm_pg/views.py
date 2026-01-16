@@ -5,6 +5,7 @@ from deps.lastfm_pg.lastfm_pg.utils import get_lastfm_playlist, format_playlist
 from lastfm_django.utils import lastfmconnect
 from .forms import LastfmPGForm
 import logging
+import pylast
 
 logger = logging.getLogger(__name__)
 
@@ -44,9 +45,24 @@ def lastfm_pg(request):
             # process the data in form.cleaned_data as required
             try:
                 content = get_lastfm_pg(form)
+            except pylast.WSError as e:
+                logger.error("Last.fm API error for user %s: %s", form.cleaned_data.get("username"), e)
+                return HttpResponse(
+                    content=f"Last.fm API error: {str(e)}. Please check the username and try again.",
+                    status=400
+                )
+            except pylast.NetworkError as e:
+                logger.error("Network error while fetching playlist: %s", e)
+                return HttpResponse(
+                    content="Network error. Please try again later.",
+                    status=503
+                )
             except Exception as e:
-                print(e)
-                return HttpResponse(content=e, status=400)
+                logger.exception("Unexpected error generating playlist for user %s", form.cleaned_data.get("username"))
+                return HttpResponse(
+                    content="An unexpected error occurred. Please try again later.",
+                    status=500
+                )
             return HttpResponse(content, content_type="text/plain")
 
     # if a GET (or any other method) we'll create a blank form

@@ -15,6 +15,15 @@ app = Celery("lastfm_django")
 #   should have a `CELERY_` prefix.
 app.config_from_object("django.conf:settings", namespace="CELERY")
 
+# Configure task defaults
+app.conf.update(
+    task_soft_time_limit=600,  # 10 minutes soft limit (raises exception)
+    task_time_limit=660,       # 11 minutes hard limit (kills worker)
+    task_acks_late=True,       # Acknowledge tasks after completion
+    worker_prefetch_multiplier=1,  # Don't prefetch tasks (better for long tasks)
+    task_reject_on_worker_lost=True,  # Reject tasks if worker is lost
+)
+
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
