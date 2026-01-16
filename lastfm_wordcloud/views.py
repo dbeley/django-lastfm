@@ -6,6 +6,7 @@ from .forms import LastfmWCForm
 from django.http import HttpResponse
 from datetime import datetime
 import logging
+import pylast
 
 logger = logging.getLogger(__name__)
 
@@ -41,13 +42,33 @@ def lastfm_wordcloud(request):
             # process the data in form.cleaned_data as required
             try:
                 content = get_lastfm_wordcloud(form)
+            except pylast.WSError as e:
+                logger.error("Last.fm API error for user %s: %s", form.cleaned_data.get("username"), e)
+                return HttpResponse(
+                    content=f"Last.fm API error: {str(e)}. Please check the username and try again.",
+                    status=400
+                )
+            except pylast.NetworkError as e:
+                logger.error("Network error while generating wordcloud: %s", e)
+                return HttpResponse(
+                    content="Network error. Please try again later.",
+                    status=503
+                )
             except Exception as e:
-                print(e)
-                return HttpResponse(content=e, status=400)
+                logger.exception("Unexpected error generating wordcloud for user %s", form.cleaned_data.get("username"))
+                return HttpResponse(
+                    content="An unexpected error occurred while generating the wordcloud. Please try again later.",
+                    status=500
+                )
+            
             response = HttpResponse(content.getvalue(), content_type="image/png")
             response["Content-Disposition"] = (
                 f"attachment; filename=wordcloud_{form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_{int(datetime.timestamp(datetime.now()))}.png"
             )
+            
+            # Clean up BytesIO object
+            content.close()
+            
             return response
 
     # if a GET (or any other method) we'll create a blank form

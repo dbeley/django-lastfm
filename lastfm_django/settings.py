@@ -33,20 +33,27 @@ def get_secret(BASE_DIR, config_file):
         CONFIG.read(os.path.join(BASE_DIR, config_file))
         return CONFIG["django"]["SECRET_KEY"]
     except Exception as e:
-        print(
-            f"Error with the config file. Be sure to have a valid config file. Error : {e}.",
-        )
-        return os.environ.get("DJANGO_SECRET_KEY", "")
+        secret_key = os.environ.get("DJANGO_SECRET_KEY", "")
+        if not secret_key:
+            raise ValueError(
+                "SECRET_KEY not found. Please provide it either in secret.ini file "
+                "or via DJANGO_SECRET_KEY environment variable."
+            )
+        return secret_key
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret(BASE_DIR, "secret.ini")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-# DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split()
+if not ALLOWED_HOSTS and not DEBUG:
+    raise ValueError(
+        "ALLOWED_HOSTS must be set in production. "
+        "Provide a space-separated list via ALLOWED_HOSTS environment variable."
+    )
 
 
 # Application definition
