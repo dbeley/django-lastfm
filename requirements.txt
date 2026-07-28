@@ -9,6 +9,6 @@ openpyxl>=3.1
 matplotlib>=3.9
 pillow>=10.4
 requests>=2.32
-tqdm>=4.66
+tqdm>=4.70.0
 wordcloud>=1.9
 Mastodon.py>=1.8
