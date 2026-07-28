@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from deps.lastfm_wordcloud.lastfm_wordcloud.__main__ import create_lastfm_wordcloud
+from lastfm_wordcloud.__main__ import create_lastfm_wordcloud
 from lastfm_django.utils import lastfmconnect
 from .forms import LastfmWCForm
 from django.http import HttpResponse

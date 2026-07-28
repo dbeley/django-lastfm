@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from deps.lastfm_pg.lastfm_pg.utils import get_lastfm_playlist, format_playlist
+from lastfm_pg.utils import get_lastfm_playlist, format_playlist
 from lastfm_django.utils import lastfmconnect
 from .forms import LastfmPGForm
 import logging

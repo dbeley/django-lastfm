@@ -1,0 +1,29 @@
+[project]
+name = "django-lastfm"
+version = "0.2.0"
+description = "Django frontend for Last.fm utilities (collage, playlist, wordcloud, scraping)"
+authors = [{name = "dbeley", email = "dbeley@protonmail.com"}]
+license = {text = "GPL-3.0-only"}
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "Django>=5.1",
+    "gunicorn",
+    "pylast",
+    "pandas",
+    "matplotlib",
+    "pillow",
+    "wordcloud",
+    "requests",
+    "beautifulsoup4",
+    "tqdm",
+    "openpyxl",
+    "Mastodon.py",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]

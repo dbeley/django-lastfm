@@ -9,3 +9,7 @@ __pycache__/
 .idea/
 result
 result-*
+*.egg-info/
+dist/
+build/
+staticfiles/
