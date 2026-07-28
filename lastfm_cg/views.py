@@ -1,12 +1,14 @@
+import logging
+from datetime import datetime
+
+import pylast
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from lastfm_cg.__main__ import get_lastfm_collage
 from lastfm_django.utils import lastfmconnect
+
 from .forms import LastfmCGForm
-from django.http import HttpResponse
-from datetime import datetime
-import logging
-import pylast
 
 logger = logging.getLogger(__name__)
 
@@ -55,30 +57,35 @@ def lastfm_cg(request):
                     content="Network error. Please try again later.",
                     status=503
                 )
-            except Exception as e:
+            except Exception:
                 logger.exception("Unexpected error generating collage for user %s", form.cleaned_data.get("username"))
                 return HttpResponse(
                     content="An unexpected error occurred while generating the collage. Please try again later.",
                     status=500
                 )
-            
+
             response = HttpResponse(content_type="image/png")
             if form.cleaned_data["top100"]:
+                timestamp = int(datetime.timestamp(datetime.now()))
                 response["Content-Disposition"] = (
-                    f"attachment; filename=collage_{form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_top100_{int(datetime.timestamp(datetime.now()))}.png"
+                    f"attachment; filename=collage_{form.cleaned_data['username']}"
+                    f"_{form.cleaned_data['timeframe']}_top100_{timestamp}.png"
                 )
             else:
+                timestamp = int(datetime.timestamp(datetime.now()))
                 response["Content-Disposition"] = (
-                    f"attachment; filename=collage_{form.cleaned_data['username']}_{form.cleaned_data['timeframe']}_{form.cleaned_data['rows']}x{form.cleaned_data['columns']}_{int(datetime.timestamp(datetime.now()))}.png"
+                    f"attachment; filename=collage_{form.cleaned_data['username']}"
+                    f"_{form.cleaned_data['timeframe']}"
+                    f"_{form.cleaned_data['rows']}x{form.cleaned_data['columns']}_{timestamp}.png"
                 )
-            
+
             try:
                 content.save(response, "PNG")
             finally:
                 # Clean up the image object
                 if hasattr(content, 'close'):
                     content.close()
-            
+
             return response
 
     # if a GET (or any other method) we'll create a blank form

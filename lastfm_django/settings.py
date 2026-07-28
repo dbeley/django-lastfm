@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import configparser
-import os
 import logging
+import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,12 +27,12 @@ logging.basicConfig(
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 
-def get_secret(BASE_DIR, config_file):
+def get_secret(base_dir, config_file):
     try:
-        CONFIG = configparser.RawConfigParser()
-        CONFIG.read(os.path.join(BASE_DIR, config_file))
-        return CONFIG["django"]["SECRET_KEY"]
-    except Exception as e:
+        config = configparser.RawConfigParser()
+        config.read(os.path.join(base_dir, config_file))
+        return config["django"]["SECRET_KEY"]
+    except Exception:
         secret_key = os.environ.get("DJANGO_SECRET_KEY", "")
         if not secret_key:
             raise ValueError(

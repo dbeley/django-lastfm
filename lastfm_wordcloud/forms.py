@@ -1,5 +1,7 @@
-from django import forms
 import re
+
+from django import forms
+
 from lastfm_django.constants import TIMEFRAME_CHOICES
 
 
@@ -17,7 +19,7 @@ class LastfmWCForm(forms.Form):
     top_tags_count = forms.IntegerField(
         label="Top tags by artist", min_value=1, max_value=30, initial=4
     )
-    
+
     def clean_username(self):
         username = self.cleaned_data.get('username', '').strip()
         if not username:

@@ -1,11 +1,13 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-
-from lastfm_pg.utils import get_lastfm_playlist, format_playlist
-from lastfm_django.utils import lastfmconnect
-from .forms import LastfmPGForm
 import logging
+
 import pylast
+from django.http import HttpResponse
+from django.shortcuts import render
+
+from lastfm_django.utils import lastfmconnect
+from lastfm_pg.utils import format_playlist, get_lastfm_playlist
+
+from .forms import LastfmPGForm
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +59,7 @@ def lastfm_pg(request):
                     content="Network error. Please try again later.",
                     status=503
                 )
-            except Exception as e:
+            except Exception:
                 logger.exception("Unexpected error generating playlist for user %s", form.cleaned_data.get("username"))
                 return HttpResponse(
                     content="An unexpected error occurred. Please try again later.",

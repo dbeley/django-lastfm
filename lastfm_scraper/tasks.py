@@ -1,8 +1,10 @@
-# -*- coding: utf-8 -*-
 
 import json
+
 import pandas as pd
+
 from .lastfm_scraper import lastfmconnect
+
 
 def get_artists_genre(genres):
     genres = [x.strip() for x in genres.split(",")]
@@ -39,7 +41,7 @@ def get_artist_info(artists):
 def fetch_new_tracks(user, min_timestamp=None, max_timestamp=None):
     import logging
     logger = logging.getLogger(__name__)
-    
+
     network = lastfmconnect()
     user = network.get_user(user)
     complete_tracks = []
@@ -48,7 +50,7 @@ def fetch_new_tracks(user, min_timestamp=None, max_timestamp=None):
         limit=100, time_from=min_timestamp, time_to=max_timestamp
     )
     complete_tracks.extend(new_tracks)
-    
+
     while new_tracks:
         last_timestamp = new_tracks[-1].timestamp
         try:
@@ -59,7 +61,7 @@ def fetch_new_tracks(user, min_timestamp=None, max_timestamp=None):
         except Exception as e:
             logger.error("Error fetching tracks at timestamp %s: %s", last_timestamp, e)
             break
-    
+
     list_dict = []
     for index, track in enumerate(reversed(complete_tracks), 1):
         list_dict.append(
