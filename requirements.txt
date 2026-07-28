@@ -1,7 +1,7 @@
 Django>=5.1,<5.2
 django-bootstrap4>=24.0
 django-widget-tweaks>=1.5
-gunicorn>=23.0
+gunicorn>=26.0.0
 pylast>=5.3
 beautifulsoup4>=4.12
 pandas>=2.2
