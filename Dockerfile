@@ -1,23 +1,35 @@
-# Use a slim version of the Python image to reduce size
-FROM python:3-slim
+FROM python:3.12-slim AS builder
 
-# Set environment variables
 ENV PYTHONUNBUFFERED=1
-
-# Set the working directory
 WORKDIR /code
 
-# Copy only the requirements.txt first to leverage Docker cache
-COPY requirements.txt .
+# Install system dependencies for Pillow, numpy, matplotlib
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential libjpeg-dev zlib1g-dev libfreetype6-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install only the packages necessary for your application
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of your application code
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    DJANGO_SETTINGS_MODULE=lastfm_django.settings \
+    PYTHONDONTWRITEBYTECODE=1
+
+WORKDIR /code
+
+# Install only runtime system deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libjpeg62-turbo libfreetype6 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
 COPY . .
 
-# Expose the application port
 EXPOSE 8000
 
-# Command to run your application (e.g., using Django's runserver)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+RUN python manage.py collectstatic --noinput --clear 2>/dev/null || true
+
+CMD ["gunicorn", "lastfm_django.wsgi", "--bind", "0.0.0.0:8000", "--timeout", "600"]

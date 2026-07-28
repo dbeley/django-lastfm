@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
 
-from celery import shared_task
 import json
+
 import pandas as pd
+
 from .lastfm_scraper import lastfmconnect
 
 
-@shared_task
 def get_artists_genre(genres):
     genres = [x.strip() for x in genres.split(",")]
     network = lastfmconnect()
@@ -24,8 +22,6 @@ def get_artists_genre(genres):
     list_artists = list(set(list_artists))
     return "\n".join(list_artists)
 
-
-@shared_task
 def get_artist_info(artists):
     network = lastfmconnect()
     artists = [x.strip() for x in artists.split(",")]
@@ -42,12 +38,10 @@ def get_artist_info(artists):
         list_dict.append(artist_dict)
     return json.dumps(list_dict, indent=4)
 
-
-@shared_task
 def fetch_new_tracks(user, min_timestamp=None, max_timestamp=None):
     import logging
     logger = logging.getLogger(__name__)
-    
+
     network = lastfmconnect()
     user = network.get_user(user)
     complete_tracks = []
@@ -56,7 +50,7 @@ def fetch_new_tracks(user, min_timestamp=None, max_timestamp=None):
         limit=100, time_from=min_timestamp, time_to=max_timestamp
     )
     complete_tracks.extend(new_tracks)
-    
+
     while new_tracks:
         last_timestamp = new_tracks[-1].timestamp
         try:
@@ -67,7 +61,7 @@ def fetch_new_tracks(user, min_timestamp=None, max_timestamp=None):
         except Exception as e:
             logger.error("Error fetching tracks at timestamp %s: %s", last_timestamp, e)
             break
-    
+
     list_dict = []
     for index, track in enumerate(reversed(complete_tracks), 1):
         list_dict.append(
@@ -83,8 +77,6 @@ def fetch_new_tracks(user, min_timestamp=None, max_timestamp=None):
     df = pd.DataFrame(list_dict)
     return df.to_json()
 
-
-@shared_task
 def get_all_favorite_tracks(user):
     network = lastfmconnect()
     user = network.get_user(user)

@@ -1,5 +1,7 @@
-from django import forms
 import re
+
+from django import forms
+
 from lastfm_django.constants import TIMEFRAME_CHOICES
 
 
@@ -18,7 +20,7 @@ class LastfmPGForm(forms.Form):
         label="Only favorites tracks", required=False, initial=False
     )
     csv = forms.BooleanField(label="CSV Export", required=False, initial=False)
-    
+
     def clean_username(self):
         username = self.cleaned_data.get('username', '').strip()
         if not username:

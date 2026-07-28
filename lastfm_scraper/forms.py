@@ -1,5 +1,6 @@
-from django import forms
 import re
+
+from django import forms
 
 
 class LastfmArtistsByGenre(forms.Form):
@@ -8,7 +9,7 @@ class LastfmArtistsByGenre(forms.Form):
         max_length=1000,
         help_text="Enter one or more genres separated by commas"
     )
-    
+
     def clean_genre(self):
         genre = self.cleaned_data.get('genre', '')
         # Remove excessive whitespace and validate
@@ -26,7 +27,7 @@ class LastfmArtistInformation(forms.Form):
         max_length=1000,
         help_text="Enter one or more artist names separated by commas"
     )
-    
+
     def clean_artist(self):
         artist = self.cleaned_data.get('artist', '')
         # Remove excessive whitespace and validate
@@ -50,7 +51,7 @@ class LastfmCompleteTimeline(forms.Form):
         label="Export format",
         choices=(("csv", "Export in csv"), ("xlsx", "Export in xlsx")),
     )
-    
+
     def clean_username(self):
         username = self.cleaned_data.get('username', '').strip()
         if not username:
@@ -70,7 +71,7 @@ class LastfmAllFavoriteTracks(forms.Form):
         min_length=1,
         help_text="Enter your Last.fm username"
     )
-    
+
     def clean_username(self):
         username = self.cleaned_data.get('username', '').strip()
         if not username:

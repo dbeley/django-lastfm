@@ -1,6 +1,6 @@
 import configparser
-import os
 import logging
+import os
 
 import pylast
 
@@ -9,10 +9,10 @@ logger = logging.getLogger(__name__)
 
 def lastfmconnect():  # pragma: no cover
     """Connect to Last.fm API using credentials from config file or environment variables.
-    
+
     Returns:
         pylast.LastFMNetwork: Authenticated Last.fm network instance
-        
+
     Raises:
         ValueError: If credentials are not found in config file or environment
     """
@@ -28,13 +28,13 @@ def lastfmconnect():  # pragma: no cover
         api_key = os.environ.get("PYLAST_API_KEY", "").strip()
         api_secret = os.environ.get("PYLAST_API_SECRET", "").strip()
         username = os.environ.get("PYLAST_USERNAME", "").strip()
-        
+
         if not all([api_key, api_secret, username]):
             raise ValueError(
                 "Last.fm credentials not found. Please provide them either in config_lastfm.ini "
                 "or via PYLAST_API_KEY, PYLAST_API_SECRET, and PYLAST_USERNAME environment variables."
             )
-    
+
     network = pylast.LastFMNetwork(
         api_key=api_key, api_secret=api_secret, username=username
     )

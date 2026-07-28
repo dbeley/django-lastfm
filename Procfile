@@ -1,3 +1,2 @@
-release: python manage.py migrate
-worker: celery -A lastfm_django worker -l info
-web: gunicorn lastfm_django.wsgi
+release: python manage.py migrate --noinput
+web: gunicorn lastfm_django.wsgi --bind 0.0.0.0:$PORT --timeout 600
